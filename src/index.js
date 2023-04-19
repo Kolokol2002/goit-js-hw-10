@@ -39,30 +39,34 @@ function onInput(e) {
 
 function createMarkupListCountry(data) {
   return [...data]
-    .map(({ flags, name }) => {
-      return `
+    .map(
+      ({ flags: { svg, alt }, name: { common } }) => `
           <li class="country">
-            <img class="flags" src="${flags.svg}" alt="${flags.alt}">
-            <span class="country_name">${name.common}</span>
+            <img class="flags" src="${svg}" alt="${alt}">
+            <span class="country_name">${common}</span>
         </li>
-        `;
-    })
+        `
+    )
     .join('');
 }
 
 function createMarkupOneCountry(data) {
   return [...data]
-    .map(({ flags, name, capital, languages, population }) => {
-      return `
+    .map(
+      ({
+        flags: { svg, alt },
+        name: { common },
+        capital,
+        languages,
+        population,
+      }) => `
             <div class="country-info-title-container">
-                <img class="country-info-flag" src="${flags.png}" alt="${
-        flags.alt
-      }" />
-                <h1 class="country-info-title">${name.common}</h1>
+                <img class="country-info-flag" src="${svg}" alt="${alt}" />
+                <h1 class="country-info-title">${common}</h1>
             </div>
             <p class="country-info-subtitle">
                 Capital:
-                <span class="country-info-subtitle-info">${capital[0]}</span>
+                <span class="country-info-subtitle-info">${capital}</span>
             </p>
             <p class="country-info-subtitle">
                 Population:
@@ -74,7 +78,7 @@ function createMarkupOneCountry(data) {
                   languages
                 ).join(', ')}</span>
             </p>
-        `;
-    })
+        `
+    )
     .join('');
 }
